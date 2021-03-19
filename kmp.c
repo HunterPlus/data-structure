@@ -25,11 +25,11 @@ void kmp(char* txt, char* s)
   int i;
   int* p = prekmp(s);  
   int size = strlen(s);
-  for(i=0; i <= size; i++)
+  for(i=0; i < size; i++)
   {
-    printf("%d ", p[i]);
-    printf("\n");
+    printf("%d ", p[i]);    
   }
+  printf("\n");
   int j = 0;
   for(i = 0; txt[i] != '\0'; i++)
   {
@@ -39,10 +39,11 @@ void kmp(char* txt, char* s)
       j++;
     if(j == size)
     {
-      printf("Pattern occurs with shift %d\n", i-j-1);
+      printf("Pattern occurs with shift %d\n", i-j);
       j = p[j-1];
     }
   }
+}
   
   int main()
   {
