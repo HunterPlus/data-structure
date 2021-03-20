@@ -33,6 +33,42 @@ struct node* search(struct node* root, int key)
     
     return search(root->right, key);
 }
+struct node* minnode(struct node* node)
+{
+    struct node* current = node;
+    while(current && current->left != NULL)
+        current = current->left;
+    
+    return current;
+}
+struct node* deletenode(struct node* root, int key)
+{
+    if (root == NULL)
+        return root;
+    if (key < root->key)
+        root->left = deletenode(root->left, key);
+    else if (key > root->key)
+        root->right = deletenode(root->right, key);
+    else {
+        if (root->left == NULL) {
+            struct node* t = root->right;
+            free(root);
+            
+            return t;
+        }
+        else if (root->right == NULL) {
+            struct node* t = root->left;
+            free(root);
+            
+            return t;
+        }
+        struct node* t = minnode(root->right);
+        root->key = t->key;
+        root->right = deletenode(root->right, t->key);
+    }
+    return root;
+}
+
 void inorder(struct node* root)
 {
     if(root != NULL)
