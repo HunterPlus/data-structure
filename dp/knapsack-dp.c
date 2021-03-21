@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int max(int a, int b) { return (a > b)? a : b;}
+int max(int a, int b) { return (a > b)? a : b; }
 
-int knapsack(int wt[], int val[], int w, int n)
+int knapsack(int vt[], int wt[], int n, int w)
 {
     int i, j;
     int k[n+1][w+1];
@@ -14,9 +14,7 @@ int knapsack(int wt[], int val[], int w, int n)
             if (i == 0 || j == 0)
                 k[i][j] = 0;
             else if (wt[i-1] <= w)
-                k[i][j] = max (
-                    val[i-1] + k[i-1][j-wt[i-1]],
-                    k[i-1][j]);
+                k[i][j] = max(vt[i-1] + k[i-1][j-wt[i-1]], k[i-1][j]);
             else
                 k[i][j] = k[i-1][j];
         }
@@ -24,13 +22,15 @@ int knapsack(int wt[], int val[], int w, int n)
     return k[n][w];
 }
 
+
 int main()
 {
-    int val[] = { 60, 100, 120 };
+    int vt[] = { 60, 100, 120 };
     int wt[] = { 10, 20, 30 };
     int w = 50;
-    int n = sizeof(val) / sizeof(val[0]);
-    printf("%d", knapsack(wt, val, w, n));
+    int n = sizeof(vt) / sizeof(vt[0]);
+    printf("%d", knapsack(vt, wt, n, w));
 
     return 0;
 }
+
