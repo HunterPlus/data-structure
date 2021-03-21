@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int* prekmp(char* s)
 {
   int i, j, size;
   
-  size = strlen(s);
+  for (size = 0; s[size] != '\0'; size++) ;
+  
   int* p = (int*)malloc(size * sizeof(int));
   p[0] = 0;
   j = 0;
@@ -22,9 +22,12 @@ int* prekmp(char* s)
 }
 void kmp(char* txt, char* s)
 {
-  int i;
-  int* p = prekmp(s);  
-  int size = strlen(s);
+  int i, size;
+  
+  int* p = prekmp(s); 
+  
+  for (size = 0; s[size] != '\0'; size++) ;
+  
   for(i=0; i < size; i++)
   {
     printf("%d ", p[i]);    
