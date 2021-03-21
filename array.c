@@ -17,6 +17,19 @@ int insertElement (int arr[], int n, int key, int capacity)
     
     return (n+1);
 }
+
+void reverse (int arr[], int n)
+{
+    int i, j, t;
+    
+    for (i = 0,j = n-1; i < j; i++,j--)
+    {
+        t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+}
+
 int deleteElement (int arr[], int n, int key)
 {
     int pos = findElement(arr, n, key);
