@@ -15,6 +15,31 @@ struct node* newnode(int key)
 }
 struct node* insert(struct node* root, int key)
 {
+    struct node* t = root;
+    struct node* q = NULL;
+    
+    if (root == NULL)
+        return newnode(key);
+    while (t)
+    {
+        q = t;
+        if (key < t->key)
+            t = t->left;
+        else if (key > t->key)
+            t = t->right;
+        else
+            return root;
+    }
+    t = newnode(key);
+    if (key < q->key)
+        q->left = t;
+    else
+        q->right = t;
+    
+    return root;
+}
+struct node* Rinsert(struct node* root, int key)
+{
     if (root == NULL)
         return newnode(key);
     if(key < root->key)
@@ -25,6 +50,21 @@ struct node* insert(struct node* root, int key)
     return root;
 }
 struct node* search(struct node* root, int key)
+{
+    struct node* t = root;
+    while (t)
+    {
+        if (key == t->key)
+            return t;
+        else if (key < t->key)
+            t = t->left;
+        else
+            t = t->right;
+    }
+    return NULL;
+}
+
+struct node* Rsearch(struct node* root, int key)
 {
     if (root == NULL || root->key == key)
         return root;
