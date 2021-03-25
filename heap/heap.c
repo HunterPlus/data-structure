@@ -71,6 +71,28 @@ int extractHeap (struct Heap *heap)
     return x;
 }
 
+void decreaseKey (struct Heap *heap, int i, int val)
+{
+    heap->a[i] = val;
+    
+    while (i > 0 && heap->a[i] < heap->a[(i-1) / 2])
+    {
+        swap(&heap->a[i], &heap->a[(i-1) / 2]);
+        i = (i-1) / 2;
+    }
+}
+
+int deleteKey (struct Heap *heap, int i)
+{
+    int x = heap->a[i];
+    
+    decreaseKey(heap, i, INT_MIN);
+    
+    extractHeap(heap);
+    
+    return x;
+}
+
 void printHeap (struct Heap *heap)
 {
     for (int i = 0; i < heap->size; i++)
@@ -90,7 +112,8 @@ int main ()
     printHeap(heap);
     
     printf("%d\n", extractHeap(heap));
-    printf("%d\n", extractHeap(heap));
+    printHeap(heap);
+    printf("%d\n", deleteKey(heap, 3));
     printHeap(heap);
     
     return 0;
