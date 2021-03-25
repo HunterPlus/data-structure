@@ -85,10 +85,8 @@ int main ()
     struct Heap *heap = createHeap(n);
     
     for (int i = 0; i < n; i++)
-    {
         insertHeap(heap, arr[i]);
-    }
-    
+        
     printHeap(heap);
     
     printf("%d\n", extractHeap(heap));
