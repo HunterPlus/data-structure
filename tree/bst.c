@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Queue
-{
-    int cap;
-    int n;
-    int f, r;
-    void **a;
-};
+struct Queue { int cap, n, f, r; void **a; };
+
 struct Queue *createQ (int cap)
 {
     struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
@@ -20,9 +15,7 @@ struct Queue *createQ (int cap)
     return q;
 }
 int isEmpty (struct Queue *q) {return (q->n == 0); }
-
 int isFull (struct Queue *q) {return (q->n == q->cap); }
-
 void enQ (struct Queue *q, void *p)
 {
     if (isFull(q)) return;
@@ -31,7 +24,6 @@ void enQ (struct Queue *q, void *p)
     q->a[q->r] = p;
     q->n++;
 }
-
 void *deQ (struct Queue *q)
 {
     if (isEmpty(q)) return NULL;
