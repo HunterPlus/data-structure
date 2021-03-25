@@ -148,8 +148,24 @@ void inorder(struct node* root)
     if(root != NULL)
     {
         inorder(root->left);
-        printf("%d \n", root->key);
+        printf("%d ", root->key);
         inorder(root->right);
+    }
+}
+void levelorder (struct node *root)
+{
+    struct Queue *q = createQ(100);
+    struct node* t = root;
+    
+    while (t)
+    {
+        printf ("%d ", t->key);
+        
+        if (t->left)
+            enQ(q, t->left);
+        if (t->right)
+            enQ(q, t->right);
+        t = deQ(q);
     }
 }
 
@@ -164,10 +180,9 @@ int main()
     insert(root, 60);
     insert(root, 80);
 
-    inorder(root);
-    
-    struct node* t = search(root, 70);
-    printf("\nsearch: %d\n", t->key);
+    inorder(root);  
+    printf("\n");
+    levelorder(root);
     
     return 0;
 }
