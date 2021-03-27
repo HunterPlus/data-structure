@@ -79,6 +79,14 @@ void KruskalMST (struct Graph *g)
 
 int main()
 {
+    /* 
+            10
+        0--------1
+        | \      |
+       6|  5\    |15
+        |     \  |
+        2--------3
+            4     */    
     int V = 4;
     int E = 5;
     
