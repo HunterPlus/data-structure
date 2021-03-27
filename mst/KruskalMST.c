@@ -1,18 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Edge 
-{
-    int src; 
-    int dest; 
-    int w;
-};
+struct Edge {int src; int dest; int w;};
 
-struct Graph 
-{
-    int V, E; 
-    struct Edge *edge;
-};
+struct Graph {int V, E; struct Edge *edge;};
 
 int find (int parent[], int i)
 {
