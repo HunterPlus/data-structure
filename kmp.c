@@ -48,11 +48,11 @@ void kmp(char* txt, char* s)
   }
 }
   
-  int main()
-  {
-    char* txt = "ABC ABCDAB ABCDABCDABDE";
-    char* s = "ABCDABD";
+int main()
+{
+  char* txt = "ABC ABCDAB ABCDABCDABDE";
+  char* s = "ABCDABD";  
     
-    kmp(txt, s);
-    return 0;
-  }
+  kmp(txt, s);
+  return 0;
+}
