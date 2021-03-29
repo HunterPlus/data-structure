@@ -42,7 +42,7 @@ void kmp(char* txt, char* s)
       j++;
     if(j == size)
     {
-      printf("Pattern occurs with shift %d\n", i-j+1);
+      printf("Pattern found at index %d\n", i-j+1);
       j = p[j-1];
     }
   }
