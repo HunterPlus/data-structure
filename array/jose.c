@@ -13,7 +13,8 @@ int Jose (int start, int m, int n)
     int t, j;
     while (size > 1)
     {
-        t = (s + m) % size;
+        t = (s + m - 1) % size;
+        printf("remove: %d \n", jose[t]);
    
         for (j = t; j < size-1; j++)
             jose[j] = jose[j+1];
