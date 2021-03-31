@@ -3,28 +3,33 @@
 
 int Jose (int start, int m, int n)
 {
-    int size = n;
+    int i, size = n;
     int *jose =(int*)malloc(size * sizeof(int));
     
-    for (int i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
         jose[i] = i+1;
         
     int s = start % size;
-    int t, j;
+    int t, j, x;
     while (size > 1)
     {
-        t = (s + m - 1) % size;
-        printf("remove: %d \n", jose[t]);
-   
+        t = (s + m - 1) % size;        
+        x = jose[t];
         for (j = t; j < size-1; j++)
             jose[j] = jose[j+1];
         
+        jose[j] = x;
         size--;
         s = t % size;
     }
     
-    int x = jose[0];
+    printf("Joseph cirle:\n");
+    for (i = 0; i < n; i++)
+        printf("%d ", jose[i]);
     
+    printf("\n");
+    
+    x = jose[0];
     free (jose);
     
     return x;
@@ -32,13 +37,12 @@ int Jose (int start, int m, int n)
 
 int main()
 {
-    int start = 1;
-    int m = 1;
-    int n = 2;
+    int start = 0;
+    int m = 3;
+    int n = 5;
     
     int x = Jose (start, m, n);
-    
-    printf("saver: %d", x);
+    printf("saver: %d\n", x);
 
     return 0;
 }
