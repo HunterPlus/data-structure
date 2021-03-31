@@ -18,8 +18,8 @@ int Jose (int start, int m, int n)
         for (j = t; j < size-1; j++)
             jose[j] = jose[j+1];
         
-        s = t;
         size--;
+        s = t % size;
     }
     
     int x = jose[0];
