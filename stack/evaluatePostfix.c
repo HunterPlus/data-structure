@@ -10,12 +10,9 @@ int evaluatePostfix (char *exp)
     top = -1;
     
     for (int i = 0; exp[i]; i++)
-    {
-        if (exp[i] == ' ') continue;
-            
+    {              
         if (isdigit(exp[i]))
             stack[++top] = exp[i] - '0';        
-        
         else
         {
             int val1 = stack[top--];
