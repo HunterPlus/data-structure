@@ -11,8 +11,7 @@ int evaluatePostfix (char *exp)
     
     for (int i = 0; exp[i]; i++)
     {
-        if (exp[i] == ' ')
-            i++;
+        if (exp[i] == ' ') continue;
             
         if (isdigit(exp[i]))
             stack[++top] = exp[i] - '0';        
