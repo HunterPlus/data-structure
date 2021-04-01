@@ -15,7 +15,7 @@ int evaluatePostfix (char *exp)
     {
         if (exp[i] == ' ') continue;
 
-        if (isdigit(exp[i]))
+        else if (isdigit(exp[i]))
         {
             int num = 0;
             while (isdigit(exp[i]))
