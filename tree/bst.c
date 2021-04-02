@@ -77,9 +77,9 @@ struct node* Rinsert(struct node* root, int key)
     if (root == NULL)
         return newnode(key);
     if(key < root->key)
-        root->left = insert(root->left, key);
+        root->left = Rinsert(root->left, key);
     else if (key > root->key)
-        root->right = insert(root->right, key);
+        root->right = Rinsert(root->right, key);
         
     return root;
 }
@@ -103,9 +103,9 @@ struct node* Rsearch(struct node* root, int key)
     if (root == NULL || root->key == key)
         return root;
     if (key < root->key)
-        return search(root->left, key);
+        return Rsearch(root->left, key);
     
-    return search(root->right, key);
+    return Rsearch(root->right, key);
 }
 struct node* minnode(struct node* node)
 {
