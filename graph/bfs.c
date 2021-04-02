@@ -20,7 +20,7 @@ void bfs (int g[V][V], int start)
         printf("vertex %d\n", vertex);
         
         for (i = 0; i < V; i++)
-            if (visited[i] != 1 && g[vertex][i] != 0)
+            if (!visited[i] && g[vertex][i])
                 Q[++rear] = i, visited[i] = 1;
     }
     
