@@ -23,7 +23,8 @@ void bfs (int g[V][V], int start)
             if (!visited[i] && g[vertex][i])
                 Q[++rear] = i, visited[i] = 1;
     }
-    
+    for (i = 0; i < V; i++)
+        printf("%d ", Q[i]);    
 }
 
 int main()
