@@ -52,7 +52,7 @@ char* cpyString (char *s1, char *s2)
 {
     char *s;
     
-    for (s = s1; (*s++ = *s2++); )
+    for (s = s1; (*s++ = *s2++); ) ;
     
     return s1;
 }
