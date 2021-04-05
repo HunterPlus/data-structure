@@ -30,7 +30,10 @@ int main()
     reverseString(s);
     
     printf("%s\n", s);
-
+    
+    for (int i = 0; i < 11; i++)
+        printf("%d ", s[i]);
+    
     return 0;
 }
 
