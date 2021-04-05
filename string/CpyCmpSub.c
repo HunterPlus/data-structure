@@ -39,15 +39,6 @@ char *findSub (char *s1, char *s2)
     return NULL;
 }
 
-int stringCmp (char *s1, char *s2)
-{
-    for (; (*s1 == *s2); s1++,s2++)
-        if (*s1 == '\0')
-            return 0;
-            
-    return (*s1 > *s2) ? 1 : -1;
-}
-
 char* cpyString (char *s1, char *s2)
 {
     char *s;
@@ -55,6 +46,15 @@ char* cpyString (char *s1, char *s2)
     for (s = s1; (*s++ = *s2++); ) ;
     
     return s1;
+}
+
+int stringCmp (char *s1, char *s2)
+{
+    for (; (*s1 == *s2); s1++,s2++)
+        if (*s1 == '\0')
+            return 0;
+            
+    return (*s1 > *s2) ? 1 : -1;
 }
 
 int stringCmp1 (char *s1, char *s2)
