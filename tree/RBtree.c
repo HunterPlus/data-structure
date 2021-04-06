@@ -18,18 +18,18 @@ struct node *newnode (int d)
     
     return t;
 }
-struct node* bst (struct node *t, int d)
+struct node* bstinsert (struct node *t, struct node *x)
 {
     if (t == NULL)
-        return newnode(d);
-    if (d < t->d)
+        return x;
+    if (x->d < t->d)
     {
-        t->l = bst(t->l, d);
+        t->l = bstinsert(t->l, x);
         t->l->p = t;
     }
-    else if (d > t->d)
+    else if (x->d > t->d)
     {
-        t->r = bst(t->r, d);
+        t->r = bstinsert(t->r, x);
         t->r->p = t;
     }
     
