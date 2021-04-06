@@ -139,3 +139,33 @@ void fixup (struct node *root, struct node *x)
     
     root->c = 0;
 }
+void inorder(struct node* t)
+{
+    if (t == NULL)
+        return;
+    inorder(t->l);
+    printf("%d ", t->d);
+    inorder(t->r);
+}
+
+int main()
+{
+    int n = 7;
+    int a[7] = { 7, 6, 5, 4, 3, 2, 1 };
+    
+    struct node* t, *root = NULL;
+  
+    for (int i = 0; i < n; i++) {
+        
+        t = newnode(a[i]);
+  
+
+        root = bstinsert(root, t);
+        fixup(root, t);
+    }
+  
+    printf("Inoder Traversal of Created Tree\n");
+    inorder(root);
+
+    return 0;
+}
