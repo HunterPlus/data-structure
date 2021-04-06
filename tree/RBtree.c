@@ -8,17 +8,17 @@ struct node
     struct node *p, *r, *l;
 };
 
-struct node *newnode (int d)
+struct node *newnode(int d)
 {
-    struct node *t = (struct node*)malloc(sizeof(struct node));
-    
+    struct node *t = (struct node *)malloc(sizeof(struct node));
+
     t->d = d;
     t->c = 1;
     t->p = t->r = t->l = NULL;
-    
+
     return t;
 }
-struct node* bstinsert (struct node *t, struct node *x)
+struct node *bstinsert(struct node *t, struct node *x)
 {
     if (t == NULL)
         return x;
@@ -32,114 +32,123 @@ struct node* bstinsert (struct node *t, struct node *x)
         t->r = bstinsert(t->r, x);
         t->r->p = t;
     }
-    
+
     return t;
 }
 
-void rightrotate (struct node **root, struct node *p)
+void rightrotate(struct node **root, struct node *p)
 {
     struct node *x = p->l;
-    
+
     if (p->l = x->r)
         p->l->p = p;
-    
+
     if (!(x->p = p->p))
         *root = x;
     else if (p == p->p->l)
         p->p->l = x;
     else
         p->p->r = x;
-        
+
     x->r = p;
     p->p = x;
 }
 
-void leftrotate (struct node **root, struct node *p)
+void leftrotate(struct node **root, struct node *p)
 {
     struct node *x = p->r;
-    
+
     if (p->r = x->l)
         p->r->p = p;
-    
+
     if (!(x->p = p->p))
         *root = x;
     else if (p == p->p->l)
         p->p->l = x;
     else
-        p->p->r =x;
-        
+        p->p->r = x;
+
     x->l = p;
     p->p = x;
 }
 
-void fixup (struct node *root, struct node *x)
+void fixup(struct node **root, struct node *x)
 {
     struct node *p = NULL;
     struct node *g = NULL;
-    
-    while ((x != root) && x->c && x->p->c)
+
+    while ((x != *root) && x->c && x->p->c)
     {
         p = x->p;
         g = x->p->p;
-        
+
         if (p == g->l)
         {
             struct node *u = g->r;
-            
+
             if (u && u->c)
             {
                 g->c = 1;
                 p->c = 0;
                 u->c = 0;
-                
+
                 x = g;
-            } else
+            }
+            else
             {
                 if (x == p->r)
                 {
-                    leftrotate(&root, p);
+                    leftrotate(root, p);
                     x = p;
                     p = x->p;
                 }
-                rightrotate(&root, g);
+                rightrotate(root, g);
                 int t = p->c;
                 p->c = g->c;
                 g->c = t;
-                
+
                 x = p;
             }
-        } else
+        }
+        else
         {
             struct node *u = g->l;
-            
+
             if (u && u->c)
             {
                 g->c = 1;
                 p->c = 0;
                 u->c = 0;
-                
+
                 x = g;
-            } else
+            }
+            else
             {
                 if (x == p->l)
                 {
-                    rightrotate(&root, p);
+                    rightrotate(root, p);
                     x = p;
                     p = x->p;
                 }
-                leftrotate(&root, g);
+                leftrotate(root, g);
                 int t = p->c;
                 p->c = g->c;
                 g->c = t;
-                
+
                 x = p;
             }
-        } 
+        }
     }
-    
-    root->c = 0;
+
+    (*root)->c = 0;
 }
-void inorder(struct node* t)
+void rbinsert (struct node **root, int d)
+{
+    struct node* t = newnode(d);
+    *root = bstinsert(*root, t);
+    fixup(root, t);
+}
+void inorder(struct node *t)
 {
     if (t == NULL)
         return;
@@ -151,19 +160,19 @@ void inorder(struct node* t)
 int main()
 {
     int n = 7;
-    int a[7] = { 7, 6, 5, 4, 3, 2, 1 };
-    
-    struct node* t, *root = NULL;
-  
-    for (int i = 0; i < n; i++) {
-        
-        t = newnode(a[i]);
-  
+    int a[7] = {7, 6, 5, 4, 3, 2, 1};
 
-        root = bstinsert(root, t);
-        fixup(root, t);
+    struct node *t, *root = NULL;
+
+    for (int i = 0; i < n; i++)
+    {
+        //t = newnode(a[i]);
+        //root = bstinsert(root, t);
+        //fixup(&root, t);
+        
+        rbinsert(&root, a[i]);        
     }
-  
+
     printf("Inoder Traversal of Created Tree\n");
     inorder(root);
 
