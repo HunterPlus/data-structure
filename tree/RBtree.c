@@ -71,3 +71,71 @@ void leftrotate (struct node **root, struct node *p)
     x->l = p;
     p->p = x;
 }
+
+void fixup (struct node *root, struct node *x)
+{
+    struct node *p = NULL;
+    struct node *g = NULL;
+    
+    while ((x != root) && x->c && x->p->c)
+    {
+        p = x->p;
+        g = x->p->p;
+        
+        if (p == g->l)
+        {
+            struct node *u = g->r;
+            
+            if (u && u->c)
+            {
+                g->c = 1;
+                p->c = 0;
+                u->c = 0;
+                
+                x = g;
+            } else
+            {
+                if (x == p->r)
+                {
+                    leftrotate(&root, p);
+                    x = p;
+                    p = x->p;
+                }
+                rightrotate(&root, g);
+                int t = p->c;
+                p->c = g->c;
+                g->c = t;
+                
+                x = p;
+            }
+        } else
+        {
+            struct node *u = g->l;
+            
+            if (u && u->c)
+            {
+                g->c = 1;
+                p->c = 0;
+                u->c = 0;
+                
+                x = g;
+            } else
+            {
+                if (x == p->l)
+                {
+                    rightrotate(&root, p);
+                    x = p;
+                    p = x->p;
+                }
+                leftrotate(&root, g);
+                int t = p->c;
+                p->c = g->c;
+                g->c = t;
+                
+                x = p;
+            }
+        } 
+    }
+    
+    root->c = 0;
+}
