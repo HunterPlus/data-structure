@@ -48,7 +48,13 @@ void quickSort (int arr[], int n)
 
 int main()
 {
-    printf("Hello World");
+    int arr[] = {18, 9, 16, 3, 7, 5, 12};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    quickSort(arr, n);
+    
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
 
     return 0;
 }
