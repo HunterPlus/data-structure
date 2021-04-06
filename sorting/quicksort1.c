@@ -10,16 +10,14 @@ void quickSort (int arr[], int n)
         int j = n-1;
         int *qi = arr;
         int *qj = arr + j;
-        int *qp = qj;
-    
+        int *qp = qj;    
 
         while (i < j)
         {
             while (i < j && *qi <= *qp)
                 i++, qi++;
             while (i < j && *qp <= *qj)
-                j--, qj--;
-        
+                j--, qj--;        
             if (i < j)
             {
                 swap(qi, qj);
@@ -27,10 +25,8 @@ void quickSort (int arr[], int n)
             }
         }  
         if (qi != qp)
-            swap(qi, qp);
-    
-        j = n - i - 1, qi++;
-        
+            swap(qi, qp);    
+        j = n - i - 1, qi++;        
         if (j < i)
         {
             if (j > 1)
