@@ -18,7 +18,8 @@ int patsearch(char *s, char *pat)
 	l1 = strlen(s);
 	l2 = strlen(pat);
     char *s1 = s;
-	while (l1 >= l2) {		
+	while (l1 >= l2) 
+	{		
 		if (!patcmp(s1, pat, l2))
 			return (s1 - s);
         
