@@ -78,6 +78,18 @@ int stringCmp1 (char *s1, char *s2)
     else
         return (*s1 > *s2)? 1 : -1;
 }
+char *stringncpy(char *dest, const char *src, size_t count)
+{
+	char *tmp = dest;
+
+	while (count) {
+		if ((*tmp = *src) != 0)
+			src++;
+		tmp++;
+		count--;
+	}
+	return dest;
+}
 int strcasecmp(const char *s1, const char *s2)
 {
 	int c1, c2;
