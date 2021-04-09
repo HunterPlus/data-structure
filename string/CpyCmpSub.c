@@ -1,7 +1,6 @@
 #include <stdio.h>
 char *findFirst (char *s, char c);
 char *findLast (char *s, char c);
-char *findSub (char *s1, char *s2);
 char *stringcpy (char *dest, const char *src);
 char *stringncpy(char *dest, const char *src, size_t count);
 char *strcat(char *dest, const char *src);
@@ -33,23 +32,7 @@ char *findLast (char *s, char c)
 	} while (*s++);
 	return (char *)last;
 }
-char *findSub (char *s1, char *s2)
-{
-    for (; (s1 = findFirst(s1, *s2)); s1++)
-    {
-        char *sc1, *sc2;
-        
-        for (sc1 = s1, sc2 = s2; ;)
-        {
-            if (*++sc2 == '\0')
-                return s1;
-            else if (*++sc1 != *sc2)
-                break;
-        }
-    }
-    
-    return NULL;
-}
+
 char *stringcpy (char *dest, const char *src)
 {
 	char *tmp = dest;
