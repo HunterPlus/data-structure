@@ -55,7 +55,28 @@ char *stringcpy1 (char *dest, const char *src)
 	
 	return tmp;
 }
+char *stringncpy(char *dest, const char *src, size_t count)
+{
+	char *tmp = dest;
 
+	while (count) {
+		if ((*tmp = *src) != 0)
+			src++;
+		tmp++;
+		count--;
+	}
+	return dest;
+}
+char *strcat(char *dest, const char *src)
+{
+	char *tmp = dest;
+
+	while (*dest)
+		dest++;
+	while ((*dest++ = *src++) != '\0')
+		;
+	return tmp;
+}
 int stringCmp (char *s1, char *s2)
 {
     for (; (*s1 == *s2); s1++,s2++)
@@ -78,18 +99,7 @@ int stringCmp1 (char *s1, char *s2)
     else
         return (*s1 > *s2)? 1 : -1;
 }
-char *stringncpy(char *dest, const char *src, size_t count)
-{
-	char *tmp = dest;
 
-	while (count) {
-		if ((*tmp = *src) != 0)
-			src++;
-		tmp++;
-		count--;
-	}
-	return dest;
-}
 int strcasecmp(const char *s1, const char *s2)
 {
 	int c1, c2;
