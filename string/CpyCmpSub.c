@@ -7,7 +7,17 @@ char *stringncpy(char *dest, const char *src, size_t count);
 char *strcat(char *dest, const char *src);
 int stringCmp (char *s1, char *s2);
 int strcasecmp(const char *s1, const char *s2);
+char *skipspaces(const char *s);
+char *strim(char *s);
 
+int strlength(char *s)
+{
+	char *sc;
+
+	for (sc = s; *sc != '\0'; ++sc)
+		/* nothing */;
+	return sc - s;
+}
 char *findFirst (char *s, char c)
 {
 	while (*s && *s != (char)c)
@@ -94,6 +104,28 @@ int strcasecmp(const char *s1, const char *s2)
 		c2 = tolower(*s2++);
 	} while (c1 == c2 && c1 != 0);
 	return c1 - c2;
+}
+char *skipspaces(const char *s)
+{
+	while (isspace(*s))
+		++s;
+	return (char *)s;
+}
+char *strim(char *s)
+{
+	int size;
+	char *end;
+
+	size = strlength(s);
+	if (!size)
+		return s;
+
+	end = s + size - 1;
+	while (end >= s && isspace(*end))
+		end--;
+	*(end + 1) = '\0';
+
+	return skipspaces(s);
 }
 int main()
 {
