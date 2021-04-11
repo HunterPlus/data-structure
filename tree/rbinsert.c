@@ -72,7 +72,7 @@ void leftrotate(struct node **root, struct node *p)
     p->p = x;
 }
 
-void fixup(struct node **root, struct node *x)
+void fixred(struct node **root, struct node *x)
 {
     struct node *p = NULL;
     struct node *g = NULL;
@@ -146,7 +146,7 @@ void rbinsert (struct node **root, int d)
 {
     struct node* t = newnode(d);
     *root = bstinsert(*root, t);
-    fixup(root, t);
+    fixred(root, t);
 }
 void inorder(struct node *t)
 {
@@ -168,7 +168,7 @@ int main()
     {
         //t = newnode(a[i]);
         //root = bstinsert(root, t);
-        //fixup(&root, t);
+        //fixred(&root, t);
         
         rbinsert(&root, a[i]);        
     }
