@@ -96,61 +96,42 @@ void fixred(struct node **root, struct node *x)
         if (p == g->l)
         {
             struct node *u = g->r;
-
             if (u && u->c)
             {
-                g->c = 1;
-                p->c = 0;
-                u->c = 0;
-
+                g->c = 1; p->c = 0; u->c = 0;
                 x = g;
-            }
-            else
+            } else
             {
                 if (x == p->r)
                 {
                     leftrotate(root, p);
-                    x = p;
-                    p = x->p;
+                    x = p; p = x->p;
                 }
                 rightrotate(root, g);
-                int t = p->c;
-                p->c = g->c;
-                g->c = t;
-
+                int t = p->c; p->c = g->c; g->c = t;
                 x = p;
             }
-        }
-        else
+        } else
         {
             struct node *u = g->l;
 
             if (u && u->c)
             {
-                g->c = 1;
-                p->c = 0;
-                u->c = 0;
-
+                g->c = 1; p->c = 0; u->c = 0;
                 x = g;
-            }
-            else
+            } else
             {
                 if (x == p->l)
                 {
                     rightrotate(root, p);
-                    x = p;
-                    p = x->p;
+                    x = p; p = x->p;
                 }
                 leftrotate(root, g);
-                int t = p->c;
-                p->c = g->c;
-                g->c = t;
-
+                int t = p->c; p->c = g->c; g->c = t;
                 x = p;
             }
         }
     }
-
     (*root)->c = 0;
 }
 void rbinsert(struct node **root, int d)
@@ -163,10 +144,8 @@ void rbinsert(struct node **root, int d)
 struct node *successor(struct node *x)
 {
     struct node *t = x;
-
     while (t && t->l)
         t = t->l;
-
     return t;
 }
 void fixblack(struct node **root, struct node *x)
@@ -182,12 +161,9 @@ void fixblack(struct node **root, struct node *x)
     {
         p->c = 1;
         s->c = 0;
-
         (s == p->l) ? rightrotate(root, p) : leftrotate(root, p);
-
         fixblack(root, x);
-    }
-    else
+    } else
     {
         if (hasred)
         {
@@ -198,31 +174,28 @@ void fixblack(struct node **root, struct node *x)
                     s->l->c = s->c;
                     s->c = p->c;
                     rightrotate(root, p);
-                }
-                else
+                } else
                 {
                     s->r->c = p->c;
                     leftrotate(root, s);
                     rightrotate(root, p);
                 }
-            }
-            else
+            } else
             {
                 if (s->r)
                 {
                     s->r->c = s->c;
                     s->c = p->c;
                     leftrotate(root, p);
-                }
-                else
+                } else
                 {
                     s->l->c = p->c;
                     rightrotate(root, s);
                     leftrotate(root, p);
                 }
             }
-        }
-        else
+            p->c = 0;
+        } else
         {
             s->c = 1;
             if (p->c == 0)
