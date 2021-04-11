@@ -8,17 +8,17 @@ struct node
     struct node *p, *r, *l;
 };
 
-struct node* newnode (int d)
+struct node *newnode(int d)
 {
-    struct node* t = (struct node*)malloc(sizeof(struct node));
+    struct node *t = (struct node *)malloc(sizeof(struct node));
     t->d = d;
     t->c = 1;
     t->p = t->r = t->l = NULL;
 }
 
-struct node* search(struct node* root, int d)
+struct node *search(struct node *root, int d)
 {
-    struct node* t = root;
+    struct node *t = root;
     while (t)
     {
         if (d == t->d)
@@ -30,7 +30,6 @@ struct node* search(struct node* root, int d)
     }
     return NULL;
 }
-
 
 struct node *bstinsert(struct node *t, struct node *x)
 {
@@ -52,35 +51,35 @@ struct node *bstinsert(struct node *t, struct node *x)
 
 void rightrotate(struct node **root, struct node *p)
 {
-    struct node* x = p->l;
-    
+    struct node *x = p->l;
+
     if (p->l = x->r)
         p->l->p = p;
-    
+
     if (!(x->p = p->p))
         *root = x;
     else if (p == p->p->l)
         p->p->l = x;
     else
         p->p->r = x;
-    
+
     p->p = x;
     x->r = p;
 }
-void leftrotate (struct node **root, struct node *p)
+void leftrotate(struct node **root, struct node *p)
 {
-    struct node* x = p->r;
-    
+    struct node *x = p->r;
+
     if (p->r = x->l)
         p->r->p = p;
-        
+
     if (!(x->p = p->p))
         *root = x;
     else if (p == p->p->l)
         p->p->l = x;
     else
         p->p->r = x;
-        
+
     x->l = p;
     p->p = x;
 }
@@ -154,71 +153,76 @@ void fixred(struct node **root, struct node *x)
 
     (*root)->c = 0;
 }
-void rbinsert (struct node **root, int d)
+void rbinsert(struct node **root, int d)
 {
-    struct node* t = newnode(d);
+    struct node *t = newnode(d);
     *root = bstinsert(*root, t);
     fixred(root, t);
 }
 
-struct node* successor (struct node* x)
+struct node *successor(struct node *x)
 {
-    struct node* t = x;
-    
+    struct node *t = x;
+
     while (t && t->l)
         t = t->l;
-    
+
     return t;
 }
-void fixblack (struct node **root, struct node *x)
+void fixblack(struct node **root, struct node *x)
 {
     if (x == *root)
-        return ;
-    
+        return;
+
     struct node *p = x->p;
     struct node *s = (x == p->l) ? p->r : p->l;
     int hasred = (s->l && s->l->c) || (s->r && s->r->c);
-    
+
     if (s->c == 1)
     {
         p->c = 1;
         s->c = 0;
-        
-        (s == p->l)? rightrotate(root, p) : leftrotate(root, p);
-        
+
+        (s == p->l) ? rightrotate(root, p) : leftrotate(root, p);
+
         fixblack(root, x);
-    } else 
+    }
+    else
     {
         if (hasred)
         {
-            if (s == p->l) {
+            if (s == p->l)
+            {
                 if (s->l)
                 {
                     s->l->c = s->c;
                     s->c = p->c;
                     rightrotate(root, p);
-                } else 
+                }
+                else
                 {
                     s->r->c = p->c;
                     leftrotate(root, s);
                     rightrotate(root, p);
                 }
-            } else
+            }
+            else
             {
                 if (s->r)
                 {
                     s->r->c = s->c;
                     s->c = p->c;
                     leftrotate(root, p);
-                } else
+                }
+                else
                 {
                     s->l->c = p->c;
                     rightrotate(root, s);
                     leftrotate(root, p);
                 }
             }
-            
-        } else
+        }
+        else
         {
             s->c = 1;
             if (p->c == 0)
@@ -228,7 +232,7 @@ void fixblack (struct node **root, struct node *x)
     }
 }
 
-void deletenode (struct node **root, struct node *v)
+void deletenode(struct node **root, struct node *v)
 {
     if (v->l && v->r)
     {
@@ -236,7 +240,7 @@ void deletenode (struct node **root, struct node *v)
         int tmp = v->d;
         v->d = u->d;
         u->d = tmp;
-        
+
         return deletenode(root, u);
     }
     struct node *p = v->p;
@@ -245,26 +249,27 @@ void deletenode (struct node **root, struct node *v)
     {
         if (v == *root)
             *root = NULL;
-        else {
+        else
+        {
             if (v->c == 0)
                 fixblack(root, v);
-            
+
             if (v == p->l)
                 p->l = NULL;
             else
                 p->r = NULL;
         }
         free(v);
-        
+
         return;
     }
     if (v == *root)
     {
         v->d = u->d;
         v->l = v->r = NULL;
-        
+
         free(u);
-        
+
         return;
     }
     if (v == p->l)
@@ -274,15 +279,15 @@ void deletenode (struct node **root, struct node *v)
     u->p = p;
     u->c = 0;
     free(v);
-    
+
     return;
 }
-void rbdelete (struct node **root, int d)
+void rbdelete(struct node **root, int d)
 {
     struct node *x = search(*root, d);
     if (x == NULL)
-        return ;
-    
+        return;
+
     deletenode(root, x);
 }
 void inorder(struct node *t)
@@ -295,47 +300,53 @@ void inorder(struct node *t)
 }
 
 /******************************************************************/
-struct Queue { int cap, n, f, r; void **a; };
-struct Queue *createQ (int cap)
+struct Queue
 {
-    struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
+    int cap, n, f, r;
+    void **a;
+};
+struct Queue *createQ(int cap)
+{
+    struct Queue *q = (struct Queue *)malloc(sizeof(struct Queue));
     q->cap = cap;
     q->n = 0;
     q->f = 0;
     q->r = cap - 1;
-    q->a = (void**)malloc(cap * sizeof(void*));
-    
+    q->a = (void **)malloc(cap * sizeof(void *));
+
     return q;
 }
-int isEmpty (struct Queue *q) {return (q->n == 0); }
-int isFull (struct Queue *q) {return (q->n == q->cap); }
-void enQ (struct Queue *q, void *p)
+int isEmpty(struct Queue *q) { return (q->n == 0); }
+int isFull(struct Queue *q) { return (q->n == q->cap); }
+void enQ(struct Queue *q, void *p)
 {
-    if (isFull(q)) return;
-    
-    q->r = (q->r+1) % q->cap;
+    if (isFull(q))
+        return;
+
+    q->r = (q->r + 1) % q->cap;
     q->a[q->r] = p;
     q->n++;
 }
-void *deQ (struct Queue *q)
+void *deQ(struct Queue *q)
 {
-    if (isEmpty(q)) return NULL;
-    
+    if (isEmpty(q))
+        return NULL;
+
     void *p = q->a[q->f];
-    q->f = (q->f+1) % q->cap;
+    q->f = (q->f + 1) % q->cap;
     q->n--;
-    
+
     return p;
 }
-void levelorder (struct node *root)
+void levelorder(struct node *root)
 {
     struct Queue *q = createQ(100);
-    struct node* t = root;
-    
+    struct node *t = root;
+
     while (t)
     {
-        printf ("%d ", t->d);
-        
+        printf("%d[%d] ", t->d, t->c);
+
         if (t->l)
             enQ(q, t->l);
         if (t->r)
@@ -349,7 +360,7 @@ int main()
 {
     int a[] = {7, 3, 18, 10, 22, 8, 11, 26, 2, 6, 13};
     int n = sizeof(a) / sizeof(a[0]);
-    
+
     struct node *t, *root = NULL;
 
     for (int i = 0; i < n; i++)
@@ -357,19 +368,26 @@ int main()
         //t = newnode(a[i]);
         //root = bstinsert(root, t);
         //fixup(&root, t);
-        
-        rbinsert(&root, a[i]);        
+
+        rbinsert(&root, a[i]);
     }
 
     printf("Inoder Traversal of Created Tree\n");
     inorder(root);
     printf("\n");
     levelorder(root);
-    
-    t = search(root, 10);
-    printf("\nkey found: %d", t->d);
 
+    rbdelete(&root, 18);
+    rbdelete(&root, 11);
+    rbdelete(&root, 3);
+    rbdelete(&root, 10);
+    rbdelete(&root, 22);
+
+    printf("\n\n");
+    inorder(root);
+    printf("\n");
+    levelorder(root);
+
+  
     return 0;
 }
-
-
