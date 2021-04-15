@@ -23,7 +23,7 @@ int knapsack(int vt[], int wt[], int n, int w)
     for (int i = 0; i <= n; i++)
     {
         for (j = 0; j <= w; j++)
-            printf("%d  ", L[i][j]);
+            printf("%d  ", k[i][j]);
         
         printf("\n");
     }    
