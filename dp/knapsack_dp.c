@@ -19,9 +19,16 @@ int knapsack(int vt[], int wt[], int n, int w)
                 k[i][j] = k[i-1][j];
         }
     }
+    printf("Knapsack Dynamic table:\n");
+    for (int i = 0; i <= n; i++)
+    {
+        for (j = 0; j <= w; j++)
+            printf("%d  ", L[i][j]);
+        
+        printf("\n");
+    }    
     return k[n][w];
 }
-
 
 int main()
 {
