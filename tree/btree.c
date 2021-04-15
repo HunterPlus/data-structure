@@ -82,9 +82,7 @@ struct node *search (struct node *x, int k)
     return search(x->cs[i], k);
 }
 void insert (struct node **root, int k)
-{
-    
-    
+{   
     if (*root == NULL)
     {
         struct node *x = newnode(1);
@@ -160,8 +158,7 @@ void delete (struct node **root, int k)
     {
         printf("The B tree is empty!\n");
         return ;
-    }
-    else
+    } else
         rm(*root, k);
     
     if ((*root)->n == 0)
