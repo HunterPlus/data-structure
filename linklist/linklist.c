@@ -19,9 +19,9 @@ void printlist (struct node *head);
 void insertionsort (struct node **head);
 void sortedinsert (struct node **head, struct node *t);
 
-void mergesort (struct node **t);
-struct node* sortedmerge (struct node *t1, struct node *t2);
-void split (struct node *s, struct node **t1, struct node **t2);
+void mergesort (struct node **h);
+struct node* sortedmerge (struct node *h1, struct node *h2);
+void split (struct node *h1, struct node **h2);
 /***************************************************************/
 struct node *newnode (int data)
 {
@@ -177,63 +177,60 @@ void insertionsort (struct node **head)
     *head = sorted;
 }
 
-void mergesort (struct node **t)
+void mergesort (struct node **h)
 {
-    struct node *s = *t;
-    struct node *t1, *t2;
+    struct node *h1 = *h, *h2;
+  
     
-    if (s == NULL || s->next == NULL)
+    if (h1 == NULL || h1->next == NULL)
         return ;
         
-    split(s, &t1, &t2);
-    mergesort(&t1);
-    mergesort(&t2);
+    split(h1, &h2);
+    mergesort(&h1);
+    mergesort(&h2);
     
-    *t = sortedmerge(t1, t2);
+    *h = sortedmerge(h1, h2);
     /*
     printf("\n-------------\n");
-    printlist(*t);
+    printlist(*h);
     printf("\n-------------\n");   */
 }
-struct node* sortedmerge (struct node *t1, struct node *t2)
+struct node* sortedmerge (struct node *h1, struct node *h2)
 {
-    struct node *result = NULL;
+    if (h1 == NULL)
+        return h2;
+    if (h2 == NULL)
+        return h1;
     
-    if (t1 == NULL)
-        return t2;
-    else if (t2 == NULL)
-        return t1;
-    
-    if (t1->data <= t2->data)
+    if (h1->data <= h2->data)
     {
-        result = t1;
-        result->next = sortedmerge(t1->next, t2);
+        h1->next = sortedmerge(h1->next, h2);
+        return h1;
     } else
     {
-        result = t2;
-        result->next = sortedmerge(t1, t2->next);
+        h2->next = sortedmerge(h1, h2->next);
+        return h2;
     }
-    return result;
 }
-void split (struct node *s, struct node **t1, struct node **t2)
+void split (struct node *h1, struct node **h2)
 {
     struct node *slow, *fast;
-    slow = s;
-    fast = s->next;
+    slow = h1;
+    fast = h1->next;
     
     while (fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
     }
-    *t1 = s;
-    *t2 = slow->next;
+
+    *h2 = slow->next;
     slow->next = NULL;
     /*
     printf("\n");
-    printlist(*t1);
+    printlist(h1);
     printf("\n");
-    printlist(*t2);   */
+    printlist(*h2);   */
 }
 
 /********************************************************************/
