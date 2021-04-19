@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int josephus (int n, int k)
+{
+    int i, idx;
+    for (i = 1, idx = 0; i < n; i++)
+        idx = (idx + k) % (i+1);
+    return (idx + 1);
+}
+
 int Jose (int start, int m, int n)
 {
     int i, size = n;
