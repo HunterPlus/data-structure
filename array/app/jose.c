@@ -8,6 +8,13 @@ int josephus (int n, int k)
         idx = (idx + k) % (i+1);
     return idx;
 }
+int Rjosephus (int n, int k)
+{
+    if (n == 1)
+        return 0;
+    int idx = (Rjosephus(n-1, k) + k) % n;
+    return idx;
+}
 
 int Jose (int start, int m, int n)
 {
