@@ -16,6 +16,7 @@ struct Heap *createHeap (int capacity)
     heap->size = 0;
     heap->capacity = capacity;
     heap->a = (int*)malloc(capacity * sizeof(int));
+    return heap;
 }
 
 void heapify (struct Heap *heap, int i)
