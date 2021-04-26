@@ -6,15 +6,14 @@ int subsum (int s[], int t[], int n, int sum)
         return 1;
     if (sum < 0 || n == 0)
         return 0;
-        
-    if (subsum(s, t, n-1, sum))
-        return 1;
     
     if (subsum(s, t, n-1, sum-s[n-1]))
     {
         t[n-1] = s[n-1];
         return 1;
     }
+    if (subsum(s, t, n-1, sum))
+        return 1;    
     
     return 0;
 }
