@@ -2,8 +2,6 @@
 #include <limits.h>
 #define V 4
 
-int min (int a, int b) { return (a < b)? a : b; }
-
 int tsputil (int graph[V][V], int v[], int path[],
                 int pos, int count, int cost, int *ans)
 {
@@ -26,6 +24,7 @@ int tsputil (int graph[V][V], int v[], int path[],
             if (tsputil(graph, v, path, i, count+1, cost+graph[pos][i], ans))
             {
                 path[count] = pos;
+                v[i] = 0;
                 return 1;
             }
             
@@ -36,6 +35,9 @@ int tsputil (int graph[V][V], int v[], int path[],
 }
 void tsp (int graph[V][V])
 {
+    int v[V] = { 0 };
+    v[0] = 1;
+    
     int path[V] = { 0 };
     path[0] = 0;
     
@@ -43,13 +45,12 @@ void tsp (int graph[V][V])
     
     for (int i = 0; i < V; i++)
     {
-        int v[V] = { 0 };
-        v[0] = 1;
-        
         if (!v[i] && graph[0][i])
         {
             v[i] = 1;
             tsputil(graph, v, path, i, 1, graph[0][i], &ans);
+            
+            v[i] = 0;
         }
     }
     
