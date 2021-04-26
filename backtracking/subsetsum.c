@@ -4,7 +4,7 @@ int subsum (int s[], int t[], int n, int sum)
 {
     if (sum == 0)
         return 1;
-    if (n == 0)
+    if (sum < 0 || n == 0)
         return 0;
         
     if (subsum(s, t, n-1, sum))
@@ -35,7 +35,7 @@ int main()
 {
     int set[] = {10, 7, 5, 18, 12, 20, 15};
     int n = sizeof(set) / sizeof(set[0]);
-    int sum = 46;
+    int sum = 45;
     
     subsetsum(set, n, sum);
 
