@@ -15,9 +15,9 @@ int editdist (char *s1, char *s2, int n1, int n2)
     if (s1[n1-1] == s2[n2-1])
         return editdist(s1, s2, n1-1, n2-1);
     else
-        return 1 + min(editdist(s1, s2, n1, n2-1),
-                        editdist(s1, s2, n1-1, n2),
-                        editdist(s1, s2, n1-1, n2-1));
+        return 1 + min(editdist(s1, s2, n1, n2-1),      //insert            
+                        editdist(s1, s2, n1-1, n2),     //remove
+                        editdist(s1, s2, n1-1, n2-1));  //replace
 }
 
 int main()
