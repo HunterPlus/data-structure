@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int count (int S[], int m, int n)
+int count (int S[], int n, int m)
 {
     int i, j, x, y;
     
@@ -34,7 +34,7 @@ int main()
     int arr[] = {1, 2, 3};
     int m = sizeof(arr)/sizeof(arr[0]);
     int n = 4;
-    printf(" %d ", count(arr, m, n));
+    printf(" %d ", count(arr, n, m));
 
     return 0;
 }
