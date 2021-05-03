@@ -12,13 +12,15 @@ int optgame(int coins[], int n)
 
     for (L = 2; L <= n; L++)
     {
+        int sum = 0;
+        for (int k = 0; k < L; k++)
+            sum += coins[k];
+            
         for (i = 0; i <= n - L; i++)
         {
             j = i + L - 1;
 
-            int sum = 0;
-            for (int k = i; k <= j; k++)
-                sum += coins[k];
+            sum += (i == 0)? 0 : coins[j] - coins[i - 1];
 
             int x = min(dp[i + 1][j], dp[i][j - 1]);
             dp[i][j] = sum - x;
