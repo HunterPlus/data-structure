@@ -21,22 +21,22 @@ int lis (int a[], int n)
         return 0;
     
     int l = 1;    
-    int tail[n];
+    int order[n];
     for (int i = 0; i < n; i++)
-        tail[i] = 0;
+        order[i] = 0;
     
-    tail[0] = a[0];
+    order[0] = a[0];
     for (int i = 1; i < n; i++)
     {
-        if (a[i] < tail[0])
-            tail[0] = a[i];
-        else if (a[i] > tail[l - 1])
-            tail[l++] = a[i];
+        if (a[i] < order[0])
+            order[0] = a[i];
+        else if (a[i] > order[l - 1])
+            order[l++] = a[i];
         else
-            tail[getidx(tail, -1, l-1, a[i])] = a[i];
+            order[getidx(order, -1, l-1, a[i])] = a[i];
     }
     for(int i = 0; i < n; i++)
-        printf("%2d ", tail[i]);
+        printf("%2d ", order[i]);
     printf("\nLIS is: %d", l);
     
     return l;
