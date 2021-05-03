@@ -3,22 +3,22 @@
 int max (int a, int b) { return (a > b)? a : b; }
 int min (int a, int b) { return (a < b)? a : b; }
 
-int findopt (int val[], int i, int j, int sum)
+int findopt (int coins[], int i, int j, int sum)
 {
     if (i == j)
-        return val[i];    
+        return coins[i];    
     if (j == i+1)
-        return max(val[i], val[j]);
-    return sum - min(findopt(val, i+1, j, sum-val[i]),
-                    findopt(val, i, j-1, sum-val[j]));
+        return max(coins[i], coins[j]);
+    return sum - min(findopt(coins, i+1, j, sum-coins[i]),
+                    findopt(coins, i, j-1, sum-coins[j]));
 }
-int optgame (int val[], int n)
+int optgame (int coins[], int n)
 {
     int sum = 0;
     for (int i = 0; i < n; i++)
-        sum += val[i];
+        sum += coins[i];
     
-    return findopt(val, 0, n-1, sum);
+    return findopt(coins, 0, n-1, sum);
 }
 
 int main()
