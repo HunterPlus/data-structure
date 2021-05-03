@@ -10,10 +10,10 @@ int cutRod (int p[], int n)
     for (int L = 1; L <= n; L++)
     {
         int q = INT_MIN;
-        for (int i = 0; i < L; i++){
+        for (int i = 0; i < L; i++)
             q = max(q, p[i] + v[L-i-1]);
-            v[L] = q;
-        }
+        
+        v[L] = q;        
     }
     return v[n];
 }
