@@ -5,6 +5,8 @@ int min (int a, int b) { return (a < b)? a : b; }
 
 int findopt (int val[], int i, int j, int sum)
 {
+    if (i == j)
+        return val[i];    
     if (j == i+1)
         return max(val[i], val[j]);
     return sum - min(findopt(val, i+1, j, sum-val[i]),
