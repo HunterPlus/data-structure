@@ -5,27 +5,27 @@ int dp[100][100];
 int max (int a, int b) { return (a > b)? a : b; }
 int min (int a, int b) { return (a < b)? a : b; }
 
-int findopt (int val[], int i, int j, int sum)
+int findopt (int coins[], int i, int j, int sum)
 {
     if (j == i+1)
-        return max(val[i], val[j]);
+        return max(coins[i], coins[j]);
     if (dp[i][j] != -1)
         return dp[i][j];
         
-    dp[i][j] = sum - min(findopt(val, i+1, j, sum-val[i]),
-                        findopt(val, i, j-1, sum-val[j]));
+    dp[i][j] = sum - min(findopt(coins, i+1, j, sum-coins[i]),
+                        findopt(coins, i, j-1, sum-coins[j]));
 
     return dp[i][j];
 }
-int optgame (int val[], int n)
+int optgame (int coins[], int n)
 {
     int sum = 0;
     for (int i = 0; i < n; i++)
-        sum += val[i];
+        sum += coins[i];
     for (int i =0; i < n; i++)
         for (int j = 0; j < n; j++)
             dp[i][j] = -1;
-    int opt = findopt(val, 0, n-1, sum);
+    int opt = findopt(coins, 0, n-1, sum);
     
     for (int i = 0; i < n; i++)
     {
