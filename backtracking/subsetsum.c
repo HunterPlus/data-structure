@@ -1,42 +1,43 @@
 #include <stdio.h>
 
-int subsum (int s[], int t[], int n, int sum)
+void printarray (int arr[], int n)
 {
-    if (sum == 0)
-        return 1;
-    if (sum < 0 || n == 0)
-        return 0;
-    
-    if (subsum(s, t, n-1, sum-s[n-1]))
-    {
-        t[n-1] = s[n-1];
-        return 1;
-    }
-    if (subsum(s, t, n-1, sum))
-        return 1;    
-    
-    return 0;
-}
-void subsetsum (int s[], int n, int sum)
-{
-    int t[n];
     for (int i = 0; i < n; i++)
-        t[i] = 0;
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+void subsetsum (int set[], int t[], int n, int sum, int count)
+{
+    if (sum == 0) 
+    {
+        printarray(t, count);
+        return;
+    }
+    if (sum < 0 || n == 0)
+        return;
+
+    t[count] =set[0];    
+    subsetsum(set+1, t, n-1, sum-set[0], count+1);
     
-    if (subsum(s, t, n, sum))
-        for (int i = 0; i < n; i++)
-            printf("%2d ", t[i]);
-    else
-        printf("There is no solution on this sum");
+    subsetsum(set+1, t, n-1, sum, count);
+    
+    return;
+}
+void findsubset (int set[], int n, int sum)
+{
+   int t[n];
+   
+   subsetsum(set, t, n, sum, 0);
 }
 
 int main()
 {
-    int set[] = {10, 7, 5, 18, 12, 20, 15};
-    int n = sizeof(set) / sizeof(set[0]);
-    int sum = 45;
+    int arr[] = {10, 7, 5, 18, 12, 20, 15};
+    int n = sizeof(arr) / sizeof(arr[0]);
     
-    subsetsum(set, n, sum);
+    int sum = 35;
+    
+    findsubset(arr, n, sum);
 
     return 0;
 }
