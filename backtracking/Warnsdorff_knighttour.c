@@ -23,9 +23,9 @@ int getdegree (int a[], int x, int y)
             deg++;
     return deg;
 }
-int nextmove (int a[], int *x, int *y, int count)
+int nextmove (int a[], int *x, int *y, int step)
 {
-    if (count == N*N)
+    if (step == N*N)
         return 1;
         
     int idx = -1;
@@ -56,7 +56,7 @@ int nextmove (int a[], int *x, int *y, int count)
     *x = nx;
     *y = ny;
 
-    nextmove(a, x, y, count+1);
+    nextmove(a, x, y, step+1);
 }
 int neighbour (int x, int y, int xx, int yy)
 {
