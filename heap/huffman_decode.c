@@ -23,7 +23,7 @@ struct heap
     struct node **arr;
 };
 
-static struct huffcode hufftable[HL] = (struct huffcode){0, 0, NULL};
+static struct huffcode hufftable[HL] = {0, 0, NULL};
 /*******************************************************************/
 void huffmancodes (char *msg);
 
@@ -228,10 +228,11 @@ void storecodes(struct node *root, char *codebuffer, int top, struct huffcode *h
         char *codes = (char *)malloc((l+1) * sizeof(char));
         for (int i = 0; i < l; i++)
             codes[i] = codebuffer[i];
-        codes[i] = '\0';
+        codes[l] = '\0';
         
         hfc[c].codes = codes;
         printhuffcodes(codes);
+    }
 }
 void printhuffcodes (char *codes)
 {
