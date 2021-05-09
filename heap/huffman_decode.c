@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define HEIGHT 100
 #define HL    128
 
 struct huffcode
@@ -23,10 +22,14 @@ struct heap
     struct node **arr;
 };
 
+static struct node *root = NULL;
 static struct huffcode hufftable[HL] = {0, 0, NULL};
 /*******************************************************************/
 void huffmancodes (char *msg);
+char *msgencoding (char *msg);
+char *msgdecoding (char *msgcodes);
 
+char *createmsgcodesbuff (char *msg);
 struct node *newnode (char ch, int freq);
 struct heap *createheap (int capacity);
 void swapnode (struct node **a, struct node **b);
@@ -39,20 +42,8 @@ struct node *huffmantree (char data[], int freq[], int n);
 
 void formatmsg (char *msg, char **chs, int **freq, int *nodes);
 void storecodes(struct node *root, char *codebuffer, int top, struct huffcode *hfc);
-void printhuffcodes (char *codes);
-void printcodes (struct node *root, int arr[], int top);
-void printarray (int arr[], int n);
-
 
 /********************************************************************/
-void huffmancodes1 (char data[], int freq[], int n)
-{
-    struct node *root = huffmantree(data, freq, n);
-    int arr[HEIGHT];
-    int top = 0;
-    
-    printcodes(root, arr, top);
-}
 void huffmancodes (char *msg)
 {
     char *chs;
@@ -65,16 +56,83 @@ void huffmancodes (char *msg)
         hufftable[idx].ch = 1;
         hufftable[idx].freq = freq[i];
     }
-    
-    struct node *root = huffmantree(chs, freq, n);
+
+    root = huffmantree(chs, freq, n);
     free(chs);
     free(freq);
     
     char codebuffer[HL] = { 0 };
     int top = 0;
+
     storecodes(root, codebuffer, top, hufftable);    
 }
 
+char *msgencoding (char *msg)
+{
+    char *msgcodes = createmsgcodesbuff(msg);
+        
+    int l = 0;
+    for (int i = 0; msg[i] != '\0'; i++)
+    {
+        char *codes = hufftable[msg[i]].codes;
+        for (int j =0; codes[j] != '\0'; j++)
+            msgcodes[l++] = codes[j];
+    }
+    msgcodes[l] = '\0';
+    return msgcodes;
+}
+
+char *msgdecoding (char *msgcodes)
+{
+    int l;
+    while (msgcodes[l] != '\0')
+        l++;
+        
+    char *msg = (char *)malloc(l * sizeof(char));
+    struct node *cur = root;
+    int j = 0;
+    
+    for (int i = 0; i < l; i++)
+    {
+        if (msgcodes[i] == '0')
+            cur = cur->l;
+        else
+            cur = cur->r;
+        
+        if (!cur->l && !cur->r)
+        {
+            msg[j++] = cur->ch;
+            cur = root;
+        }
+    }
+    msg[j] = '\0';
+    return msg;
+}
+
+char *createmsgcodesbuff (char *msg)
+{
+    int maxcodelen = 0;
+    for (int i = 0; i < HL; i++)
+    {
+        if (hufftable[i].ch)
+        {
+            int l = 0;
+            while (hufftable[i].codes[l] != '\0')
+                l++;
+            
+            maxcodelen = (l > maxcodelen)? l : maxcodelen;
+        }
+    }
+    int n;
+    for (n = 0; msg[n] != '\0'; n++) ;
+    
+    int l = n * maxcodelen;
+    char *msgcodes = (char *)malloc(l * sizeof(char));
+    for (int i = 0; i < l; i++)
+        msgcodes[i] = 0;
+        
+    return msgcodes;
+}
 struct node *newnode (char ch, int freq)
 {
     struct node *t = (struct node*)malloc(sizeof(struct node));
@@ -222,51 +280,34 @@ void storecodes(struct node *root, char *codebuffer, int top, struct huffcode *h
     if (!root->l && !root->r)
     {
         char c = root->ch;
-        int l;
-        for (l = 0; codebuffer[l] != '\0'; l++);
-        
-        char *codes = (char *)malloc((l+1) * sizeof(char));
-        for (int i = 0; i < l; i++)
+
+        char *codes = (char *)malloc((top+1) * sizeof(char));
+        for (int i = 0; i < top; i++)
             codes[i] = codebuffer[i];
-        codes[l] = '\0';
+        codes[top] = '\0';
         
         hfc[c].codes = codes;
-        printhuffcodes(codes);
     }
 }
-void printhuffcodes (char *codes)
-{
-    printf("%s\n", codes);
-}
-void printcodes (struct node *root, int arr[], int top)
-{
-    if (root->l)
-    {
-        arr[top] = 0;
-        printcodes(root->l, arr, top+1);
-    }
-    if (root->r)
-    {
-        arr[top] = 1;
-        printcodes(root->r, arr, top+1);
-    }
-    if (!root->l && !root->r)
-    {
-        printf("%c: ", root->ch);
-        printarray(arr, top);
-    }
-}
-void printarray (int arr[], int n)
-{
-    for (int i = 0; i < n; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-}
+
 int main()
 {
-    char *msg = "GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby,";
+    char *msg = "good good study, day day up!";
      
     huffmancodes(msg);
-
+    
+    for (int i = 0; i < HL; i++)
+    {
+        if (hufftable[i].ch)
+            printf("[%c : %d]\t%s\n", i, hufftable[i].freq,
+                hufftable[i].codes);
+    } 
+    
+    char *msgcodes = msgencoding(msg);
+    printf("\n%s\n", msgcodes);
+    
+    char *msgfromcodes = msgdecoding(msgcodes);
+    printf("\n%s\n", msgfromcodes);
+    
     return 0;
 }
