@@ -263,12 +263,9 @@ void printarray (int arr[], int n)
 }
 int main()
 {
-    char arr[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
-    int freq[] = { 5, 9, 12, 13, 16, 45 };
- 
-    int size = sizeof(arr) / sizeof(arr[0]);
- 
-    huffmancodes(arr, freq, size);
+    char *msg = "GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby,";
+     
+    huffmancodes(msg);
 
     return 0;
 }
