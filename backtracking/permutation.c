@@ -10,10 +10,9 @@ void swap (int *x, int *y) { int t = *x; *x = *y; *y = t; }
 
 void permuteutil (int a[], int buff[], int n, int idx)
 {
-    if (n == 1)
-    {
-        buff[idx] = a[0];
-        printarray(buff, idx+1);
+    if (n == 0)
+    {        
+        printarray(buff, idx);
         return;
     }
     for (int i = 0; i < n; i++)
