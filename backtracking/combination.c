@@ -25,7 +25,7 @@ void combinutil (int a[], int n, int buff[], int counter, int r)
 
 void combination (int a[], int n, int r)
 {
-    int buff[n];
+    int buff[r];
     
     combinutil(a, n, buff, 0, r);
 }
