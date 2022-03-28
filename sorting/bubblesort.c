@@ -1,5 +1,19 @@
 #include <stdio.h>
-
+void bubble(int v[], int n)
+{
+    int i, idx;
+    int temp;
+    
+    for (; n > 1; n--) {
+        idx = 0;
+        for (i = 0; i < n; i++)
+            if (v[i] > v[idx])
+                idx = i;
+        temp = v[n-1];
+        v[n-1] = v[idx];
+        v[idx] = temp;
+    }
+}
 void swap (int *x, int *y) { int t = *x; *x = *y; *y = t; }
 
 void bubbleSort (int arr[], int n)
