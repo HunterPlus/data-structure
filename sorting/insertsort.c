@@ -1,5 +1,18 @@
 #include <stdio.h>
 
+void swap (int *x, int *y) { int t = *x; *x = *y; *y = t; }
+void insertsort1(int v[], int n)
+{
+    int i, j, idx;
+    
+    for (i = 0; i < n; i++) {
+        idx = i;
+        for (j = i; j < n; j++)
+            if (v[j]< v[idx])
+                idx = j;
+        swap(v + i, v + idx);
+    }
+}
 void insertSort (int arr[], int n)
 {
     int i, j, key;
