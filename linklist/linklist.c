@@ -112,6 +112,17 @@ struct node *reverse (struct node *head)
     }
     return q;
 }
+struct node *reverse(struct node *head)
+{
+    struct node *temp, *rear;
+    
+    if ((temp = head) == NULL || (rear = head->next) == NULL)
+        return head;
+    head = reverse(head->next);
+    temp->next = NULL;
+    rear->next = temp;
+    return head;
+}
 struct node *Rreverse (struct node *head)
 {
     if (head == NULL || head->next == NULL)
