@@ -13,7 +13,7 @@ int matchhere(char *, char *);
 int matchstar(int, char *, char *);
 
 /* match:search for regexp anywhere in text */
-int match(char *regexp, char *test)
+int match(char *regexp, char *text)
 {
 	if (regexp[0] == '^')
 		return matchhere(regexp + 1, text);
