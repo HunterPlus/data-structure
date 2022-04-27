@@ -11,6 +11,7 @@
 
 int matchhere(char *, char *);
 int matchstar(int, char *, char *);
+int matchstar1(int, char *, char *);	/* leftmost longest match */
 
 /* match:search for regexp anywhere in text */
 int match(char *regexp, char *text)
@@ -45,6 +46,24 @@ int matchstar(int c, char *regexp, char *text)
 		if (matchhere(regexp, text))
 			return 1;
 	} while (*text != '\0' && (*text++ == c || c == '.'));
+	return 0;
+}
+
+/* 
+ * matchstar1: identifying a maximal sequence of occurrences of 
+ * the input character c. Then uses matchhere to try to extend 
+ * the match to the rest of the pattern and the rest of the text. 
+ */
+int matchstar(int c, char *regexp, char *text)
+{
+	char	*t;
+	
+	for (t = text; *t != '\0' && (*t == c || c == '.'); t++)
+		;
+	do {		/* match zero or more */
+		if (matchhere(regexp, t))
+			return 1;
+	} while (t-- > text);
 	return 0;
 }
 
