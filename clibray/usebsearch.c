@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -50,7 +51,7 @@ int lookup(char *word, struct key tab[], int ntab)
 	struct key key, *kp;
 	
 	key.word = word;
-	key.cout = 0;		/* unused, anything will do */
+	key.count = 0;		/* unused, anything will do */
 	kp = bsearch(&key, tab, ntab, sizeof(tab[0]), keycmp);
 	if (kp == NULL)
 		return -1;
@@ -62,7 +63,7 @@ int main()
 	int	i;
 	char	*keyword = "void";
 	
-	if ((i = bsearch(keyword, keytab, NELEMS(keytab))) == -1)
+	if ((i = lookup(keyword, keytab, NELEMS(keytab))) == -1)
 		printf("keyword %s was not found in keytab.\n", keyword);
 	else
 		printf ("keyword %s at index of: %d\n", keyword, i);
