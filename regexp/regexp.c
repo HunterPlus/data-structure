@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 /*
  * 	c	matches any literal character c
  * 	.	matches any single character
@@ -5,7 +8,6 @@
  * 	$    	matches the end of the input string
  * 	*    	matches zero or more occurrences of the previous character
  */
-
 
 int matchhere(char *, char *);
 int matchstar(int, char *, char *);
@@ -43,5 +45,18 @@ int matchstar(int c, char *regexp, char *text)
 		if (matchhere(regexp, text))
 			return 1;
 	} while (*text != '\0' && (*text++ == c || c == '.'));
+	return 0;
+}
+
+int main(int argc, char *argv[])
+{
+	if (argc != 3) {
+		fprintf(stderr, "usage: match <regexp> <text>");
+		exit(1);
+	}
+	if(match(argv[1], argv[2]))
+		printf("match found.\n");
+	else
+		printf("no match.\n");
 	return 0;
 }
