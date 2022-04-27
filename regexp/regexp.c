@@ -54,7 +54,7 @@ int matchstar(int c, char *regexp, char *text)
  * the input character c. Then uses matchhere to try to extend 
  * the match to the rest of the pattern and the rest of the text. 
  */
-int matchstar(int c, char *regexp, char *text)
+int matchstar1(int c, char *regexp, char *text)
 {
 	char	*t;
 	
