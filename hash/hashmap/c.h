@@ -6,15 +6,15 @@
 #include <assert.h>
 
 struct entry {
-    char *key;
-    int len;
-    void *val;
+        char    *key;
+        int     len;
+        void    *val;
 };
 
 struct map {
-    struct entry *buckets;
-    int cap;
-    int used;
+        struct entry *buckets;
+        int     cap;
+        int     used;
 };
 
 void *hashmap_get(struct map *map, char *key);
