@@ -5,6 +5,11 @@
 #include <stdarg.h>
 #include <assert.h>
 
+#define INIT_SIZE 16        		/* init hash buckets size */
+#define HIGH_WATERMARK 70   		/* rehash if the usage exceeds 70% */
+#define LOW_WATERMARK  50   		/* keep the usage below 50% after rehash */
+#define TOMBSTONE ((void *) -1) 	/* represents a deleted hash entry */
+
 struct entry {
         char    *key;
         int     len;
@@ -26,3 +31,4 @@ void hashmap_delete2(struct map *map, char *key, int len);
 void hashmap_remove(struct map *map);
 
 char *format(char *fmt, ...);
+
