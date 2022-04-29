@@ -1,10 +1,5 @@
 #include "c.h"
 
-#define INIT_SIZE 16        /* init hash buckets size */
-#define HIGH_WATERMARK 70   /* rehash if the usage exceeds 70% */
-#define LOW_WATERMARK  50   /* keep the usage below 50% after rehash */
-#define TOMBSTONE ((void *) -1) /* represents a deleted hash entry */
-
 static uint64_t fnv_hash(char *s, int len)
 {
   	uint64_t hash = 0xcbf29ce484222325;
