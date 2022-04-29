@@ -1,3 +1,10 @@
+/* 
+ * This is an implementation of the open-addressing hash table.
+ * Author: Rui Ueyama, the author of A small C compiler chibicc
+ * that implements most C11 features.
+ * github page: https://github.com/rui314/chibicc
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
