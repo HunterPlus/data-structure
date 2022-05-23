@@ -2,14 +2,14 @@
 void swap (int *x, int *y) { int t = *x; *x = *y; *y = t; }
 void bubble(int v[], int n)
 {
-    int i, idx;
+    int i, j;
       
     for (; n > 1; n--) {
-        idx = 0;
+        j = 0;
         for (i = 0; i < n; i++)
-            if (v[i] > v[idx])
-                idx = i;
-        swap(v+n-1, v+idx);
+            if (v[i] > v[j])
+                j = i;
+        swap(v+n-1, v+j);
     }
 }
 
